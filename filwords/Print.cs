@@ -5,41 +5,6 @@ namespace filwords
 {
     public class Print
     {
-        private static int index = 0;
-
-        static int GetRandomNumber ()
-        {
-            var random = new Random();
-            int num = random.Next(0, 7);
-
-            return num;
-        }
-
-        static ConsoleColor GetColor(int num)
-        {
-            ConsoleColor color;
-            switch (num)
-            {
-                case 0: color = ConsoleColor.Red;
-                    break;
-                case 1: color = ConsoleColor.Blue;
-                    break;
-                case 2: color = ConsoleColor.Cyan;
-                    break;
-                case 3: color = ConsoleColor.Yellow;
-                    break;
-                case 4: color = ConsoleColor.Green;
-                    break;
-                case 5: color = ConsoleColor.Magenta;
-                    break;
-                case 6: color = ConsoleColor.Black;
-                    break;
-                default: color = ConsoleColor.Black;
-                    break;
-            }
-
-            return color;
-        }
         public static void GameName()
         {
             Console.Clear();
@@ -54,64 +19,89 @@ namespace filwords
             
             for (int i = 1, j = 0; i < 8; i++, j++)
             {
-                Console.ForegroundColor = GetColor(GetRandomNumber());
+                Console.ForegroundColor = Helper.GetColor(Helper.GetRandomNumber());
                 Console.SetCursorPosition(60, i);
                 Console.Write(str[j]);
                 Console.ResetColor();
             }
             Console.WriteLine();
         }
-
-        public static string Menu(List<string> items)
+        private static void Button(Button button, int i)
         {
-            GameName();
+            Row('╔', '═', '╗', button, 10 + 3 * i);
+            Row('║', button.text, '║', button, 11 + 3 * i);
+            Row('╚', '═', '╝', button, 12 + 3 * i);
+        }
+        private static void Row(char ch1, char ch2, char ch3, Button button, int j)
+        {
+            Console.SetCursorPosition( 85, j);
+            Console.Write(ch1);
+            for (int i = button.width; i > 0; i--)
+                Console.Write(ch2);
+            Console.WriteLine(ch3);
+        }
+        private static void Row(char ch1, string value, char ch2, Button button, int j)
+        {
+            Console.SetCursorPosition(85, j);
+            Console.Write(ch1);
             
+            int check = 0;
+            if (value.Length % 2 != 0)
+                check = 1;
+
+            int space = (button.width - value.Length) / 2;
+            for (int i = space; i > 0; i--)
+                Console.Write(" ");
+            Console.Write(value);
+            for (int i = space + check; i > 0; i--)
+                Console.Write(" ");
+            Console.WriteLine(ch2);
+        }
+        public static void Menu(List<Button> items)
+        {
+            Console.Clear();
+            GameName();
+
             for (int i = 0; i < items.Count; i++)
             {
-                Console.SetCursorPosition(90, i + 10);
-                if (i == index)
-                {
+                
+                if (items[i].isChosen)
                     Console.ForegroundColor = ConsoleColor.Red;
-                    Console.WriteLine(items[i]);
-                }
-                else
-                {
-                    Console.WriteLine(items[i]);
-                }
+                
+                Button(items[i], i);
                 Console.ResetColor();
             }
+        }
 
-            ConsoleKeyInfo key = Console.ReadKey();
-
-            if (key.Key == ConsoleKey.DownArrow || key.Key == ConsoleKey.S)
-            {
-                if (index == items.Count - 1)
-                {
-                    index = 0;
-                }
-                else
-                {
-                    index++;
-                }
-            }
-            else if (key.Key == ConsoleKey.UpArrow || key.Key == ConsoleKey.W)
-            {
-                if (index == 0)
-                {
-                    index = items.Count - 1;
-                }
-                else
-                {
-                    index--;
-                }
-            }
-            else if (key.Key == ConsoleKey.Enter)
-            {
-                return items[index];
-            }
-
+        public static void NewGame()
+        {
             Console.Clear();
-            return string.Empty;
+            
+            Console.SetCursorPosition(90, 5);
+            Console.Write("Введите ваше имя: ");
+            var name = Console.ReadLine();
+
+            Console.SetCursorPosition(90, 5);
+            Console.WriteLine("Тут однажды будет начало новой игры");
+            Console.ReadKey();
+        }
+
+        public static void ContinueGame()
+        {
+            Console.Clear();
+
+            Console.SetCursorPosition(90, 5);
+            Console.WriteLine("Тут однажды будет продолжение игры");
+            Console.ReadKey();
+        }
+
+        public static void HighScoreTable()
+        {
+            Console.Clear();
+
+            Console.SetCursorPosition(90, 5);
+            Console.WriteLine("Тут однажды будет таблица рекордов");
+            Console.ReadKey();
         }
     }
 }
