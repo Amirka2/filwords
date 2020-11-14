@@ -3,9 +3,9 @@ using System.Collections.Generic;
 
 namespace filwords
 {
-    public class Print
+    public class Output
     {
-        public static void GameName()
+        public static void PrintGameName()
         {
             Console.Clear();
             string[] str = new string[7];
@@ -26,7 +26,7 @@ namespace filwords
             }
             Console.WriteLine();
         }
-        private static void Button(Button button, int i)
+        private static void PrintButton(Button button, int i)
         {
             Row('╔', '═', '╗', button, 10 + 3 * i);
             Row('║', button.text, '║', button, 11 + 3 * i);
@@ -57,10 +57,10 @@ namespace filwords
                 Console.Write(" ");
             Console.WriteLine(ch2);
         }
-        public static void Menu(List<Button> items)
+        public static void PrintMenu(List<Button> items)
         {
             Console.Clear();
-            GameName();
+            PrintGameName();
 
             for (int i = 0; i < items.Count; i++)
             {
@@ -68,12 +68,11 @@ namespace filwords
                 if (items[i].isChosen)
                     Console.ForegroundColor = ConsoleColor.Red;
                 
-                Button(items[i], i);
+                PrintButton(items[i], i);
                 Console.ResetColor();
             }
         }
-
-        public static void NewGame()
+        public static void PrintNewGame()
         {
             Console.Clear();
             
@@ -85,8 +84,7 @@ namespace filwords
             Console.WriteLine("Тут однажды будет начало новой игры");
             Console.ReadKey();
         }
-
-        public static void ContinueGame()
+        public static void PrintContinueGame()
         {
             Console.Clear();
 
@@ -94,8 +92,7 @@ namespace filwords
             Console.WriteLine("Тут однажды будет продолжение игры");
             Console.ReadKey();
         }
-
-        public static void HighScoreTable()
+        public static void PrintHighScoreTable()
         {
             Console.Clear();
 

@@ -7,36 +7,36 @@ namespace filwords
     {
         private static int index = 0;
 
-        static void Choose(int index)
+        static void ChooseMenuItem(int index)
         {
             if (index == 0)
-                NewGame();
+                CreateNewGame();
             else if (index == 1)
                 ContinueGame();
             else if (index == 2)
-                HighScoreTable();
+                OpenHighScoreTable();
             else if (index == 3)
                 Environment.Exit(0);
         }
-        static void NewGame()
+        static void CreateNewGame()
         {
             Console.Clear();
             Console.WriteLine("Однажды здесь будет новая игра");
-            //Print.NewGame();
+            //Output.PrintNewGame();
         }
 
         static void ContinueGame()
         {
             Console.Clear();
             Console.WriteLine("Однажды здесь будет продолжение текущей игры");
-            //Print.ContinueGame();
+            //Output.PrintContinueGame();
         }
 
-        static void HighScoreTable()
+        static void OpenHighScoreTable()
         {
             Console.Clear();
             Console.WriteLine("Однажды здесь будет таблица рекордов");
-            //Print.HighScoreTable();
+            //Output.PrintHighScoreTable();
         }
         public static void Main(string[] args)
         {
@@ -63,12 +63,12 @@ namespace filwords
                     index = menuItems.Count - 1;
 
                 menuItems[index].isChosen = true;
-                Print.Menu(menuItems);
+                Output.PrintMenu(menuItems);
                 key = Console.ReadKey();
                 menuItems[index].isChosen = false;
             } while (key.Key != ConsoleKey.Enter);
 
-            Choose(index);
+            ChooseMenuItem(index);
         }
     }
 }
