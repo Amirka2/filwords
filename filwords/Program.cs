@@ -16,7 +16,10 @@ namespace filwords
             else if (index == 2)
                 OpenHighScoreTable();
             else if (index == 3)
+            {
+                Console.Clear();
                 Environment.Exit(0);
+            }        
         }
         static void CreateNewGame()
         {
